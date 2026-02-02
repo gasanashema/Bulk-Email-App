@@ -33,8 +33,8 @@ export function WizardLayout({ children }: { children: React.ReactNode }) {
           className="p-6 border-b border-slate-100 cursor-pointer hover:bg-slate-50 transition-colors"
           onClick={goToHome}
         >
-          <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent flex items-center gap-2">
-            <span className="text-2xl">✉️</span> Email Builder
+          <h1 className="text-xl font-bold flex items-center gap-2 text-slate-900">
+            <span className="text-2xl">✉️</span> BucketMail
           </h1>
           <p className="text-xs text-slate-500 mt-1">
             Secure, local-only bulk emails
@@ -141,6 +141,24 @@ export function WizardLayout({ children }: { children: React.ReactNode }) {
         <div className="flex-1 overflow-y-auto p-8 relative">
           <div className="max-w-5xl mx-auto h-full">{children}</div>
         </div>
+
+        <footer className="border-t border-slate-200/60 bg-white/50 backdrop-blur-sm">
+          <div className="max-w-full mx-auto px-6 h-12 flex items-center justify-center text-xs text-slate-500">
+            <p>
+              © {new Date().getFullYear()} BucketMail. Built with privacy in
+              mind by{" "}
+              <a
+                href="https://linktr.ee/Shema_philbert"
+                target="_blank"
+                rel="noreferrer"
+                className="text-slate-900 font-semibold hover:text-blue-600 transition-colors"
+              >
+                Shema
+              </a>
+              .
+            </p>
+          </div>
+        </footer>
       </main>
 
       <AppPasswordGuideModal

@@ -26,7 +26,7 @@ export function HomePage() {
           <span className="text-2xl">✉️</span> BucketMail
         </div>
         <a
-          href="https://github.com"
+          href="https://github.com/gasanashema/Bulk-Email-App"
           target="_blank"
           rel="noreferrer"
           className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-1"
@@ -100,18 +100,20 @@ export function HomePage() {
       </main>
 
       <footer className="relative z-10 border-t border-slate-100 bg-white/50 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between text-sm text-slate-500">
+        <div className="max-w-full mx-auto px-6 h-16 flex items-center justify-center text-sm text-slate-500">
           <p>
-            © {new Date().getFullYear()} BucketMail. Built with privacy in mind.
+            © {new Date().getFullYear()} BucketMail. Built with privacy in mind
+            by{" "}
+            <a
+              href="https://linktr.ee/Shema_philbert"
+              target="_blank"
+              rel="noreferrer"
+              className="text-slate-900 hover:text-slate-600 transition-colors"
+            >
+              Shema
+            </a>
+            .
           </p>
-          <div className="flex gap-4">
-            <a href="#" className="hover:text-slate-900">
-              Privacy
-            </a>
-            <a href="#" className="hover:text-slate-900">
-              Terms
-            </a>
-          </div>
         </div>
       </footer>
     </div>
