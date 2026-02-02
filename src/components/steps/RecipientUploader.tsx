@@ -304,7 +304,7 @@ export function RecipientUploader() {
              </div>
            </Card>
 
-           <div className="flex justify-end pt-4">
+           <div className="flex justify-end pt-4 mb-4">
                <Button onClick={() => dispatch({ type: 'NEXT_STEP' })} className="w-full md:w-auto">
                   Continue to Content <CheckCircle className="w-4 h-4 ml-2" />
                </Button>
