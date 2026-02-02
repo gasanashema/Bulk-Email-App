@@ -9,6 +9,7 @@ import { useView } from "../../context/ViewContext";
 import { Home, PlusCircle } from "lucide-react";
 
 import type { Recipient } from "../../types";
+import { API_SEND_URL } from "../../api";
 
 interface SendingStatus {
   [email: string]: "pending" | "sending" | "success" | "error";
@@ -117,9 +118,7 @@ export function SendingProgress({
 
       try {
         const html = generateEmailHtml(recipient);
-        const apiUrl =
-          import.meta.env.VITE_API_URL || "http://localhost:3001/api/send";
-        const response = await fetch(apiUrl, {
+        const response = await fetch(API_SEND_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

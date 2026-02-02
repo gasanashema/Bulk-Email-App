@@ -14,6 +14,7 @@ import {
 import { Button } from "../ui/Button";
 import { useView } from "../../context/ViewContext";
 import React, { useState } from "react";
+import { API_BASE_URL } from "../../api";
 
 export function HomePage() {
   const { startWizard } = useView();
@@ -25,11 +26,7 @@ export function HomePage() {
     setError(null);
 
     try {
-      const apiUrl =
-        import.meta.env.VITE_API_URL || "http://localhost:3001/api/send";
-      const baseUrl = apiUrl.replace(/\/api\/send\/?$/, "") || "/";
-
-      const response = await fetch(baseUrl, {
+      const response = await fetch(API_BASE_URL, {
         method: "GET",
         headers: { Accept: "text/html,application/json" },
       });
