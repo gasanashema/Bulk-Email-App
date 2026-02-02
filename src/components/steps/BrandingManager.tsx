@@ -24,7 +24,6 @@ export function BrandingManager() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 flex-1">
-        {/* Controls Side */}
         <div className="space-y-6 overflow-y-auto pr-2">
           {/* Visual Identity */}
           <Card>
@@ -118,7 +117,6 @@ export function BrandingManager() {
             </CardContent>
           </Card>
 
-          {/* Footer Details */}
           <Card>
             <CardContent className="p-6 space-y-4">
               <div className="flex items-center justify-between mb-2">
@@ -192,7 +190,6 @@ export function BrandingManager() {
             </CardContent>
           </Card>
 
-          {/* Call to Action configuration */}
           <Card>
             <CardContent className="p-6 space-y-4">
               <div className="flex items-center justify-between mb-2">
@@ -245,13 +242,11 @@ export function BrandingManager() {
           </Card>
         </div>
 
-        {/* Preview Side */}
         <div className="hidden lg:block bg-slate-200 rounded-xl overflow-hidden border-4 border-slate-300 shadow-inner relative">
           <div className="absolute top-0 w-full bg-white border-b px-4 py-2 text-xs text-slate-400 flex justify-center">
             Simple Preview
           </div>
           <div className="p-8 mt-8 h-full bg-white overflow-y-auto">
-            {/* Simulated Email */}
             <div
               style={{
                 fontFamily: "sans-serif",
@@ -259,7 +254,6 @@ export function BrandingManager() {
                 margin: "0 auto",
               }}
             >
-              {/* Header/Logo Placeholder */}
               <div
                 className="mb-6 pb-6 border-b"
                 style={{ borderColor: state.branding.primaryColor }}
@@ -267,14 +261,12 @@ export function BrandingManager() {
                 <div className="h-8 w-32 bg-slate-100 rounded animate-pulse" />
               </div>
 
-              {/* Content Placeholder */}
               <div className="space-y-3 mb-8">
                 <div className="h-4 bg-slate-100 rounded w-3/4" />
                 <div className="h-4 bg-slate-100 rounded w-full" />
                 <div className="h-4 bg-slate-100 rounded w-5/6" />
               </div>
 
-              {/* Button Placeholder */}
               {state.branding.ctaEnabled && (
                 <div className="mb-8 text-center">
                   <a
@@ -289,7 +281,6 @@ export function BrandingManager() {
                 </div>
               )}
 
-              {/* Footer Preview */}
               {state.footer.enabled && (
                 <div
                   className="mt-8 pt-8 border-t text-center text-xs text-slate-500"

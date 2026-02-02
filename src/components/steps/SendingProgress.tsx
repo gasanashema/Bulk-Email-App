@@ -31,20 +31,14 @@ export function SendingProgress({
   const { dispatch } = useWizard();
 
   useEffect(() => {
-    // Initialize status
     const initialStatus: SendingStatus = {};
     state.recipients.forEach((r) => (initialStatus[r.email] = "pending"));
     setStatusMap(initialStatus);
 
     startSending();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const generateEmailHtml = (recipient: Recipient) => {
-    // Re-use logic or ideally move this to a helper.
-    // For now, simpler to reconstruct or pass down.
-    // Assumption: We need to regenerate it here or pass the generator function.
-    // Let's assume we can grab the content and do basic replace here for now to avoid huge refactors.
     let content = state.emailContent;
     Object.keys(recipient).forEach((key) => {
       const regex = new RegExp(`{{${key}}}`, "gi");
@@ -55,7 +49,6 @@ export function SendingProgress({
     const signature = state.signatures.find(
       (s) => s.id === state.selectedSignatureId,
     );
-    // Using static marked import
     const htmlBody = marked.parse(content);
 
     return `
@@ -134,16 +127,24 @@ export function SendingProgress({
           setStatusMap((prev) => ({ ...prev, [recipient.email]: "success" }));
           sentCount++;
         } else {
+          const errorData = await response.json().catch(() => ({}));
+          console.error(
+            `Failed to send to ${recipient.email}:`,
+            errorData.error || response.statusText,
+          );
           setStatusMap((prev) => ({ ...prev, [recipient.email]: "error" }));
           failedCount++;
         }
-      } catch (e) {
+      } catch (e: any) {
+        console.error(
+          `Network error sending to ${recipient.email}:`,
+          e.message,
+        );
         setStatusMap((prev) => ({ ...prev, [recipient.email]: "error" }));
         failedCount++;
       }
 
       setStats({ sent: sentCount, failed: failedCount });
-      // Artificial delay for better UX visualization
       await new Promise((r) => setTimeout(r, 800));
     }
 
@@ -185,7 +186,6 @@ export function SendingProgress({
           </p>
         </div>
 
-        {/* Progress Bar */}
         <div className="space-y-2">
           <div className="flex justify-between text-xs font-semibold uppercase tracking-wider text-slate-500">
             <span>Progress</span>
@@ -201,7 +201,6 @@ export function SendingProgress({
           </div>
         </div>
 
-        {/* Stats */}
         <div className="grid grid-cols-3 gap-4 text-center">
           <div className="p-4 rounded-xl bg-slate-50">
             <div className="text-2xl font-bold text-slate-900">
@@ -225,7 +224,6 @@ export function SendingProgress({
           </div>
         </div>
 
-        {/* List */}
         <div className="max-h-60 overflow-y-auto space-y-2 pr-2 custom-scrollbar">
           {state.recipients.map((r, i) => (
             <div

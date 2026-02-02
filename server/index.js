@@ -22,6 +22,30 @@ app.get("/", (req, res) => {
     `);
 });
 
+app.post("/api/verify", async (req, res) => {
+  const { auth } = req.body;
+  const { user, pass } = auth || {};
+
+  if (!user || !pass) {
+    return res.status(401).json({ error: "Missing credentials" });
+  }
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: { user, pass },
+    });
+
+    await transporter.verify();
+    res
+      .status(200)
+      .json({ success: true, message: "SMTP connection successful" });
+  } catch (error) {
+    console.error("SMTP Verification Error:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.post("/api/send", async (req, res) => {
   const { to, subject, html, fromName, auth } = req.body;
 
@@ -39,7 +63,6 @@ app.post("/api/send", async (req, res) => {
   }
 
   try {
-    // Create transporter per-request with dynamic credentials
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: { user, pass },
@@ -55,8 +78,18 @@ app.post("/api/send", async (req, res) => {
     console.log(`Email sent to ${to}: ${info.messageId}`);
     res.status(200).json({ success: true, messageId: info.messageId });
   } catch (error) {
-    console.error("Error sending email:", error);
-    res.status(500).json({ error: error.message });
+    console.error(`Error sending email to ${to}:`, error);
+
+    let userFriendlyError = error.message;
+    if (error.code === "EAUTH") {
+      userFriendlyError =
+        "Authentication failed. Please verify your Gmail address and App Password.";
+    } else if (error.code === "ESOCKET" || error.syscall === "connect") {
+      userFriendlyError =
+        "Connection to Gmail blocked. This is common on some hosting providers like Vercel. Consider using SendGrid or Mailgun.";
+    }
+
+    res.status(500).json({ error: userFriendlyError, code: error.code });
   }
 });
 
