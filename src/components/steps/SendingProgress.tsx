@@ -9,6 +9,7 @@ import { useView } from "../../context/ViewContext";
 import { Home, PlusCircle } from "lucide-react";
 
 import type { Recipient } from "../../types";
+import { API_SEND_URL } from "../../api";
 
 interface SendingStatus {
   [email: string]: "pending" | "sending" | "success" | "error";
@@ -117,9 +118,7 @@ export function SendingProgress({
 
       try {
         const html = generateEmailHtml(recipient);
-        const apiUrl =
-          import.meta.env.VITE_API_URL || "http://localhost:3001/api/send";
-        const response = await fetch(apiUrl, {
+        const response = await fetch(API_SEND_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -161,8 +160,20 @@ export function SendingProgress({
       <Card className="p-8 space-y-8 bg-white/80 backdrop-blur-md shadow-2xl border-0 ring-1 ring-slate-200/50">
         <div className="text-center space-y-2">
           <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 relative">
-            <div className="absolute inset-0 rounded-full border-4 border-blue-500 border-t-transparent animate-spin" />
-            <Loader2 className="w-6 h-6 text-blue-600 animate-pulse" />
+            {isFinished ? (
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                className="bg-green-100 w-full h-full rounded-full flex items-center justify-center"
+              >
+                <CheckCircle2 className="w-8 h-8 text-green-600" />
+              </motion.div>
+            ) : (
+              <>
+                <div className="absolute inset-0 rounded-full border-4 border-blue-500 border-t-transparent animate-spin" />
+                <Loader2 className="w-6 h-6 text-blue-600 animate-pulse" />
+              </>
+            )}
           </div>
           <h2 className="text-2xl font-bold text-slate-900">
             {isFinished ? "Campaign Complete!" : "Sending Campaign..."}

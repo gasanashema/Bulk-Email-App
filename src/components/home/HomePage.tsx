@@ -8,12 +8,43 @@ import {
   Share2,
   Github,
   Linkedin,
+  Loader2,
+  AlertTriangle,
 } from "lucide-react";
 import { Button } from "../ui/Button";
 import { useView } from "../../context/ViewContext";
+import React, { useState } from "react";
+import { API_BASE_URL } from "../../api";
 
 export function HomePage() {
   const { startWizard } = useView();
+  const [isChecking, setIsChecking] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleStartCampaign = async () => {
+    setIsChecking(true);
+    setError(null);
+
+    try {
+      const response = await fetch(API_BASE_URL, {
+        method: "GET",
+        headers: { Accept: "text/html,application/json" },
+      });
+
+      if (response.ok) {
+        startWizard();
+      } else {
+        throw new Error("Server responded with an error.");
+      }
+    } catch (err) {
+      console.error("Health check failed:", err);
+      setError(
+        "Cannot connect to the backend server. Please make sure it's running.",
+      );
+    } finally {
+      setIsChecking(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900 overflow-hidden relative">
@@ -36,8 +67,6 @@ export function HomePage() {
           <Code className="w-4 h-4" /> Open Source
         </a>
       </nav>
-
-      {/* Hero */}
       <main className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 pb-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -62,18 +91,41 @@ export function HomePage() {
             leave your environment.
           </p>
 
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="pt-4"
-          >
-            <Button
-              onClick={startWizard}
-              className="h-14 px-8 text-lg rounded-full bg-slate-900 hover:bg-slate-800 text-white shadow-xl hover:shadow-2xl transition-all"
+          <div className="flex flex-col items-center gap-4">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="pt-4"
             >
-              Start Campaign <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-          </motion.div>
+              <Button
+                onClick={handleStartCampaign}
+                disabled={isChecking}
+                className="h-14 px-8 text-lg rounded-full bg-slate-900 hover:bg-slate-800 text-white shadow-xl hover:shadow-2xl transition-all min-w-[200px]"
+              >
+                {isChecking ? (
+                  <>
+                    <Loader2 className="mr-2 w-5 h-5 animate-spin" /> Verifying
+                    Server...
+                  </>
+                ) : (
+                  <>
+                    Start Campaign <ArrowRight className="ml-2 w-5 h-5" />
+                  </>
+                )}
+              </Button>
+            </motion.div>
+
+            {error && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex items-center gap-2 text-red-600 bg-red-50 px-4 py-2 rounded-lg border border-red-100 text-sm font-medium"
+              >
+                <AlertTriangle className="w-4 h-4" />
+                {error}
+              </motion.div>
+            )}
+          </div>
         </motion.div>
 
         {/* Features */}
