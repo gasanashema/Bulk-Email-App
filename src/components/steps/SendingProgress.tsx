@@ -5,6 +5,8 @@ import { CheckCircle2, XCircle, Loader2 } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { motion } from "framer-motion";
 import { marked } from "marked";
+import { useView } from "../../context/ViewContext";
+import { Home, PlusCircle } from "lucide-react";
 
 import type { Recipient } from "../../types";
 
@@ -23,6 +25,9 @@ export function SendingProgress({
   const [statusMap, setStatusMap] = useState<SendingStatus>({});
   const [currentIndex, setCurrentIndex] = useState(0);
   const [stats, setStats] = useState({ sent: 0, failed: 0 });
+  const [isFinished, setIsFinished] = useState(false);
+  const { goToHome } = useView();
+  const { dispatch } = useWizard();
 
   useEffect(() => {
     // Initialize status
@@ -144,6 +149,7 @@ export function SendingProgress({
     }
 
     setTimeout(() => {
+      setIsFinished(true);
       onComplete({ sent: sentCount, failed: failedCount });
     }, 1000);
   };
@@ -159,9 +165,13 @@ export function SendingProgress({
             <Loader2 className="w-6 h-6 text-blue-600 animate-pulse" />
           </div>
           <h2 className="text-2xl font-bold text-slate-900">
-            Sending Campaign...
+            {isFinished ? "Campaign Complete!" : "Sending Campaign..."}
           </h2>
-          <p className="text-slate-500">Do not close this window.</p>
+          <p className="text-slate-500">
+            {isFinished
+              ? "Your messages have been processed."
+              : "Do not close this window."}
+          </p>
         </div>
 
         {/* Progress Bar */}
@@ -239,6 +249,23 @@ export function SendingProgress({
             </div>
           ))}
         </div>
+
+        {isFinished && (
+          <div className="pt-6 grid grid-cols-2 gap-4 animate-in fade-in zoom-in slide-in-from-bottom-4 duration-500">
+            <button
+              onClick={() => goToHome()}
+              className="flex items-center justify-center gap-2 px-6 py-3 bg-white border border-slate-200 text-slate-700 font-semibold rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-all shadow-sm"
+            >
+              <Home className="w-4 h-4" /> Go to Home
+            </button>
+            <button
+              onClick={() => dispatch({ type: "RESET" })}
+              className="flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+            >
+              <PlusCircle className="w-4 h-4" /> New Campaign
+            </button>
+          </div>
+        )}
       </Card>
     </div>
   );

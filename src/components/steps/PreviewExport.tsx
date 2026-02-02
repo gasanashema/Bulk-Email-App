@@ -21,12 +21,10 @@ import { Input } from "../ui/Input";
 import { marked } from "marked";
 import { AppPasswordGuideModal } from "../ui/AppPasswordGuideModal";
 import { SendingProgress } from "./SendingProgress";
-import { useView } from "../../context/ViewContext";
 
 import type { Recipient } from "../../types";
 
 export function PreviewExport() {
-  const { endCampaign } = useView();
   const { state, dispatch } = useWizard();
   const [activeRecipientIndex, setActiveRecipientIndex] = useState(0);
   const [viewMode, setViewMode] = useState<"desktop" | "mobile">("desktop");
@@ -188,9 +186,7 @@ export function PreviewExport() {
         <SendingProgress
           credentials={credentials}
           onComplete={() => {
-            setIsSending(false);
-            dispatch({ type: "SET_STEP", payload: 1 });
-            endCampaign();
+            // No automatic redirect anymore
           }}
         />
       </div>

@@ -7,7 +7,6 @@ import { SignatureManager } from "./components/steps/SignatureManager";
 import { BrandingManager } from "./components/steps/BrandingManager";
 import { PreviewExport } from "./components/steps/PreviewExport";
 import { HomePage } from "./components/home/HomePage";
-import { SuccessPage } from "./components/steps/SuccessPage";
 
 function WizardContent() {
   const { state } = useWizard();
@@ -32,7 +31,6 @@ function MainApp() {
   const { view } = useView();
 
   if (view === "home") return <HomePage />;
-  if (view === "success") return <SuccessPage />;
 
   return (
     <WizardLayout>
