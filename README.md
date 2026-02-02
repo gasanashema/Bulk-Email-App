@@ -2,6 +2,11 @@
 
 **BucketMail** is a powerful, browser-based bulk email solution designed for privacy, speed, and simplicity. Built with developers and marketers in mind, it allows you to send mass email campaigns directly from your browser—meaning your data never touches our servers.
 
+### 🌐 Live Links
+
+- **Frontend**: [bulk-email-app-wine.vercel.app](https://bulk-email-app-wine.vercel.app/)
+- **Backend API**: [bulk-email-app-backend-two.vercel.app](https://bulk-email-app-backend-two.vercel.app/)
+
 ![BucketMail LinkedIn Flyer](file:///home/shema/.gemini/antigravity/brain/dc5ca2d2-25a0-418a-895e-af59e8ff79bb/bucketmail_linkedin_flyer_mockup_1770070085235.png)
 
 ## ✨ Features
@@ -43,19 +48,14 @@
     ```
 
 3.  **Start the application**:
-    Open two terminals:
-    - **Terminal 1 (Backend)**:
 
-      ```bash
-      cd bulk-email-builder/server
-      node server.js
-      ```
+    Run the following command in the root directory:
 
-    - **Terminal 2 (Frontend)**:
-      ```bash
-      cd bulk-email-builder
-      npm run dev
-      ```
+    ```bash
+    npm start
+    ```
+
+    This will launch both the backend server and the frontend development environment simultaneously using `concurrently`.
 
 4.  **Access the app**: Open `http://localhost:5173` in your browser.
 
