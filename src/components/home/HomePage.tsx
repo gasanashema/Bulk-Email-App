@@ -6,6 +6,8 @@ import {
   Code,
   HardDrive,
   Share2,
+  Github,
+  Linkedin,
 } from "lucide-react";
 import { Button } from "../ui/Button";
 import { useView } from "../../context/ViewContext";
@@ -100,20 +102,45 @@ export function HomePage() {
       </main>
 
       <footer className="relative z-10 border-t border-slate-100 bg-white/50 backdrop-blur-sm">
-        <div className="max-w-full mx-auto px-6 h-16 flex items-center justify-center text-sm text-slate-500">
+        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between text-sm text-slate-500">
           <p>
-            © {new Date().getFullYear()} BucketMail. Built with privacy in mind
-            by{" "}
+            © {new Date().getFullYear()} BucketMail. Built by{" "}
             <a
               href="https://linktr.ee/Shema_philbert"
               target="_blank"
               rel="noreferrer"
-              className="text-slate-900 hover:text-slate-600 transition-colors"
+              className="text-slate-900 font-medium hover:text-blue-600 transition-colors"
             >
               Shema
             </a>
-            .
           </p>
+
+          <div className="flex items-center gap-4">
+            <a
+              href="https://github.com/gasanashema"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-slate-900 transition-colors"
+            >
+              <Github className="w-5 h-5" />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/shema-philbert"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-slate-900 transition-colors"
+            >
+              <Linkedin className="w-5 h-5" />
+            </a>
+            <a
+              href="https://linktr.ee/Shema_philbert"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-slate-900 transition-colors"
+            >
+              <Share2 className="w-5 h-5" />
+            </a>
+          </div>
         </div>
       </footer>
     </div>
