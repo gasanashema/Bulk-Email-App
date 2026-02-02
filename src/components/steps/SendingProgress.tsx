@@ -61,12 +61,24 @@ export function SendingProgress({
     body { font-family: sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }
     h1, h2, h3 { color: ${state.branding.primaryColor}; }
     a { color: ${state.branding.buttonColor}; }
-    .footer { margin-top: 40px; border-top: 1px solid #eee; font-size: 12px; color: #888; text-align: center; }
+    .btn { display: inline-block; background: ${state.branding.buttonColor}; color: #fff !important; text-decoration: none; padding: 10px 20px; border-radius: 5px; margin: 10px 0; }
+    .footer { margin-top: 40px; border-top: 1px solid ${state.branding.primaryColor}; font-size: 12px; color: #888; text-align: center; }
+    .footer strong { color: ${state.branding.primaryColor}; }
     .signature { margin-top: 30px; border-top: 1px dashed #ddd; padding-top: 10px; }
 </style>
 </head>
 <body>
     ${htmlBody}
+
+    ${
+      state.branding.ctaEnabled
+        ? `
+    <div style="text-align: center; margin: 30px 0;">
+        <a href="${state.branding.ctaUrl}" class="btn">${state.branding.ctaText}</a>
+    </div>
+    `
+        : ""
+    }
     ${
       signature
         ? `

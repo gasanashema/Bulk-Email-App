@@ -21,7 +21,10 @@ export interface Branding {
   primaryColor: string;
   buttonColor: string;
   logoUrl?: string;
-  theme: 'minimal' | 'corporate' | 'modern';
+  theme: "minimal" | "corporate" | "modern";
+  ctaEnabled: boolean;
+  ctaText: string;
+  ctaUrl: string;
 }
 
 export interface FooterDetails {
@@ -45,14 +48,14 @@ export interface WizardState {
 }
 
 export type WizardAction =
-  | { type: 'NEXT_STEP' }
-  | { type: 'PREV_STEP' }
-  | { type: 'SET_STEP'; payload: number }
-  | { type: 'SET_RECIPIENTS'; payload: Recipient[] }
-  | { type: 'UPDATE_EMAIL_CONTENT'; payload: string }
-  | { type: 'UPDATE_SUBJECT'; payload: string }
-  | { type: 'ADD_SIGNATURE'; payload: Signature }
-  | { type: 'UPDATE_SIGNATURE'; payload: Signature }
-  | { type: 'SELECT_SIGNATURE'; payload: string | null }
-  | { type: 'UPDATE_BRANDING'; payload: Partial<Branding> }
-  | { type: 'UPDATE_FOOTER'; payload: Partial<FooterDetails> };
+  | { type: "NEXT_STEP" }
+  | { type: "PREV_STEP" }
+  | { type: "SET_STEP"; payload: number }
+  | { type: "SET_RECIPIENTS"; payload: Recipient[] }
+  | { type: "UPDATE_EMAIL_CONTENT"; payload: string }
+  | { type: "UPDATE_SUBJECT"; payload: string }
+  | { type: "ADD_SIGNATURE"; payload: Signature }
+  | { type: "UPDATE_SIGNATURE"; payload: Signature }
+  | { type: "SELECT_SIGNATURE"; payload: string | null }
+  | { type: "UPDATE_BRANDING"; payload: Partial<Branding> }
+  | { type: "UPDATE_FOOTER"; payload: Partial<FooterDetails> };
