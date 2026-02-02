@@ -46,7 +46,7 @@ export function HomePage() {
           className="max-w-4xl mx-auto space-y-8"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-xs font-semibold tracking-wide uppercase mb-4">
-            <Zap className="w-3 h-3" /> Local-First Bulk Emailer
+            <Zap className="w-3 h-3" /> Secure Browser-Based Emailer
           </div>
 
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 leading-[1.1]">
@@ -57,9 +57,9 @@ export function HomePage() {
           </h1>
 
           <p className="max-w-2xl mx-auto text-lg md:text-xl text-slate-500 leading-relaxed">
-            A powerful, open-source email builder that runs entirely on your
-            machine. Your lists, your templates, and your credentials never
-            leave your device.
+            A powerful, open-source email builder that runs entirely in your
+            browser. Your lists, your templates, and your credentials never
+            leave your environment.
           </p>
 
           <motion.div
@@ -91,7 +91,7 @@ export function HomePage() {
           <FeatureCard
             icon={<HardDrive className="w-6 h-6 text-blue-600" />}
             title="Zero Cloud Storage"
-            desc="Everything happens in your browser and local server. No databases, no hidden cloud uploads."
+            desc="Everything happens in your browser session. No databases, no hidden cloud uploads, just pure privacy."
           />
           <FeatureCard
             icon={<Share2 className="w-6 h-6 text-indigo-600" />}
