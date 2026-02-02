@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useWizard } from "../../context/WizardContext";
-import { useView } from "../../context/ViewContext";
 import { Card } from "../ui/Card";
-import { CheckCircle2, XCircle, Loader2, ArrowRight } from "lucide-react";
+import { CheckCircle2, XCircle, Loader2 } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { motion } from "framer-motion";
+import { marked } from "marked";
 
 import type { Recipient } from "../../types";
 
@@ -49,7 +49,7 @@ export function SendingProgress({
     const signature = state.signatures.find(
       (s) => s.id === state.selectedSignatureId,
     );
-    const { marked } = require("marked"); // dynamic import if needed, or simple import at top
+    // Using static marked import
     const htmlBody = marked.parse(content);
 
     return `
