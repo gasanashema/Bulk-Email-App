@@ -26,7 +26,7 @@ export function HomePage() {
           <span className="text-2xl">✉️</span> BucketMail
         </div>
         <a
-          href="https://github.com/gasanashema/Bulk-Email-App"
+          href="https://github.com/gasanashema"
           target="_blank"
           rel="noreferrer"
           className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-1"

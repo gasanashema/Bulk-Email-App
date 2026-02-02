@@ -69,10 +69,10 @@ export function SuccessPage() {
             </h3>
             <div className="flex justify-center gap-4">
               <a
-                href="https://github.com/philbert-shema"
+                href="https://github.com/gasanashema"
                 target="_blank"
                 rel="noreferrer"
-                className="p-3 bg-white rounded-full shadow-sm hover:shadow-md hover:text-blue-600 transition-all text-slate-600"
+                className="p-3 bg-white rounded-full shadow-sm hover:shadow-md hover:text-slate-900 transition-all text-slate-600"
               >
                 <Github className="w-6 h-6" />
               </a>
@@ -83,6 +83,14 @@ export function SuccessPage() {
                 className="p-3 bg-white rounded-full shadow-sm hover:shadow-md hover:text-blue-700 transition-all text-slate-600"
               >
                 <Linkedin className="w-6 h-6" />
+              </a>
+              <a
+                href="https://linktr.ee/Shema_philbert"
+                target="_blank"
+                rel="noreferrer"
+                className="p-3 bg-white rounded-full shadow-sm hover:shadow-md hover:text-green-600 transition-all text-slate-600"
+              >
+                <Share2 className="w-6 h-6" />
               </a>
             </div>
             <p className="text-xs text-slate-400">
