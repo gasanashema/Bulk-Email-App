@@ -49,8 +49,8 @@ export function SuccessPage() {
           <div className="text-center space-y-6">
             <p className="text-slate-600 leading-relaxed">
               Your bulk email campaign has finished. Remember, no data was
-              stored on any external servers. Everything ran locally on your
-              machine.
+              stored on any external servers. Everything was processed securely
+              in your browser.
             </p>
 
             <div className="flex flex-col gap-3">
