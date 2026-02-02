@@ -58,4 +58,5 @@ export type WizardAction =
   | { type: "UPDATE_SIGNATURE"; payload: Signature }
   | { type: "SELECT_SIGNATURE"; payload: string | null }
   | { type: "UPDATE_BRANDING"; payload: Partial<Branding> }
-  | { type: "UPDATE_FOOTER"; payload: Partial<FooterDetails> };
+  | { type: "UPDATE_FOOTER"; payload: Partial<FooterDetails> }
+  | { type: "RESET" };

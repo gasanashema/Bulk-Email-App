@@ -11,7 +11,7 @@ import type {
   FooterDetails,
 } from "../types";
 
-const initialBranding: Branding = {
+export const initialBranding: Branding = {
   primaryColor: "#3b82f6", // blue-500
   buttonColor: "#2563eb", // blue-600
   theme: "modern",
@@ -20,12 +20,12 @@ const initialBranding: Branding = {
   ctaUrl: "",
 };
 
-const initialFooter: FooterDetails = {
+export const initialFooter: FooterDetails = {
   enabled: true,
   companyName: "",
 };
 
-const initialState: WizardState = {
+export const initialState: WizardState = {
   currentStep: 1,
   recipients: [],
   emailContent: "",
@@ -65,6 +65,8 @@ function wizardReducer(state: WizardState, action: WizardAction): WizardState {
       return { ...state, branding: { ...state.branding, ...action.payload } };
     case "UPDATE_FOOTER":
       return { ...state, footer: { ...state.footer, ...action.payload } };
+    case "RESET":
+      return initialState;
     default:
       return state;
   }

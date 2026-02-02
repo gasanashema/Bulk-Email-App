@@ -4,10 +4,7 @@
 
 ### 🌐 Live Links
 
-- **Frontend**: [bulk-email-app-wine.vercel.app](https://bulk-email-app-wine.vercel.app/)
-- **Backend API**: [bulk-email-app-backend-two.vercel.app](https://bulk-email-app-backend-two.vercel.app/)
-
-![BucketMail LinkedIn Flyer](file:///home/shema/.gemini/antigravity/brain/dc5ca2d2-25a0-418a-895e-af59e8ff79bb/bucketmail_linkedin_flyer_mockup_1770070085235.png)
+- **Deployed Link**: [bulk-email-app-wine.vercel.app](https://bulk-email-app-wine.vercel.app/)
 
 ## ✨ Features
 
