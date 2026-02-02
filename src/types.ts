@@ -2,12 +2,12 @@ export interface Recipient {
   id: string;
   email: string;
   name: string;
-  [key: string]: string; // Allow dynamic fields
+  [key: string]: string;
 }
 
 export interface Signature {
   id: string;
-  name: string; // e.g., "Professional", "Casual"
+  name: string;
   fullName: string;
   jobTitle?: string;
   companyName?: string;

@@ -12,8 +12,8 @@ import type {
 } from "../types";
 
 export const initialBranding: Branding = {
-  primaryColor: "#3b82f6", // blue-500
-  buttonColor: "#2563eb", // blue-600
+  primaryColor: "#3b82f6",
+  buttonColor: "#2563eb",
   theme: "modern",
   ctaEnabled: false,
   ctaText: "Learn More",

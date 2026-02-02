@@ -22,6 +22,8 @@ import { marked } from "marked";
 import { AppPasswordGuideModal } from "../ui/AppPasswordGuideModal";
 import { SendingProgress } from "./SendingProgress";
 
+import { API_BASE_URL } from "../../api";
+
 import type { Recipient } from "../../types";
 
 export function PreviewExport() {
@@ -38,7 +40,6 @@ export function PreviewExport() {
   const generateEmailHtml = (recipient: Recipient | Record<string, any>) => {
     let content = state.emailContent;
 
-    // Variable Replacement
     Object.keys(recipient).forEach((key) => {
       const regex = new RegExp(`{{${key}}}`, "gi");
       content = content.replace(regex, recipient[key]);
@@ -51,7 +52,6 @@ export function PreviewExport() {
 
     const htmlBody = marked.parse(content);
 
-    // Basic HTML Template
     return `
 <!DOCTYPE html>
 <html>
@@ -169,15 +169,51 @@ export function PreviewExport() {
       return;
     }
 
-    if (
-      !confirm(
-        `Are you sure you want to send emails to ${state.recipients.length} recipients using ${credentials.user}?`,
-      )
-    ) {
+    setIsSending(true);
+
+    try {
+      const verifyUrl = `${API_BASE_URL.replace(/\/$/, "")}/api/verify`;
+
+      const response = await fetch(verifyUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ auth: credentials }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        let errorMsg = errorData.error || "Failed to verify SMTP connection.";
+
+        if (
+          errorMsg.includes("connect") ||
+          errorMsg.includes("timeout") ||
+          errorMsg.includes("ESOCKET")
+        ) {
+          errorMsg =
+            "Connection to Gmail blocked or timed out. This is common on cloud providers like Vercel. You may need to use a dedicated email API like SendGrid or Mailgun if this persists.";
+        } else if (errorMsg.includes("auth") || errorMsg.includes("EAUTH")) {
+          errorMsg =
+            "Authentication failed. Double check your Gmail address and App Password.";
+        }
+
+        alert(`Verification failed: ${errorMsg}`);
+        setIsSending(false);
+        return;
+      }
+
+      if (
+        !confirm(
+          `Credentials verified! Send emails to ${state.recipients.length} recipients?`,
+        )
+      ) {
+        setIsSending(false);
+        return;
+      }
+    } catch (error: any) {
+      alert(`Network error during verification: ${error.message}`);
+      setIsSending(false);
       return;
     }
-
-    setIsSending(true);
   };
 
   if (isSending) {
@@ -195,7 +231,6 @@ export function PreviewExport() {
 
   return (
     <div className="h-full flex flex-col space-y-6">
-      {/* Header Section */}
       <div className="flex justify-between items-end">
         <div>
           <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
@@ -232,7 +267,6 @@ export function PreviewExport() {
         </div>
       </div>
 
-      {/* Validation Warnings */}
       {!state.subject && (
         <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-center animate-in fade-in slide-in-from-top-2">
           <div className="bg-amber-100 p-2 rounded-full mr-3">
@@ -250,7 +284,6 @@ export function PreviewExport() {
       )}
 
       <div className="flex-1 flex gap-8 overflow-hidden">
-        {/* Left Column: Controls */}
         <div className="w-80 flex flex-col gap-6 overflow-y-auto pr-2">
           {/* Credentials Card */}
           <Card className="border-0 shadow-lg ring-1 ring-slate-100 bg-gradient-to-br from-white to-slate-50/50">
@@ -334,7 +367,6 @@ export function PreviewExport() {
             </CardContent>
           </Card>
 
-          {/* Preview Selector */}
           <Card className="border-slate-100 shadow-sm bg-white">
             <CardContent className="p-5 space-y-3">
               <h3 className="font-bold text-slate-800 text-sm">
@@ -359,7 +391,6 @@ export function PreviewExport() {
             </CardContent>
           </Card>
 
-          {/* Export Actions */}
           <div className="grid grid-cols-2 gap-3">
             <Button
               variant="outline"
@@ -378,7 +409,6 @@ export function PreviewExport() {
           </div>
         </div>
 
-        {/* Right Column: Preview Frame */}
         <div className="flex-1 bg-slate-100 rounded-2xl border border-slate-200/60 p-8 flex justify-center overflow-y-auto relative shadow-inner">
           <div className="absolute inset-0 bg-grid-slate-200/50 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] pointer-events-none" />
 

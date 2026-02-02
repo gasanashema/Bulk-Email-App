@@ -53,7 +53,6 @@ export function HomePage() {
         <div className="absolute top-[20%] -left-[10%] w-[600px] h-[600px] rounded-full bg-indigo-100/50 blur-3xl opacity-50" />
       </div>
 
-      {/* Nav */}
       <nav className="relative z-10 w-full max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         <div className="flex items-center gap-2 font-bold text-xl">
           <span className="text-2xl">✉️</span> BucketMail
@@ -128,7 +127,6 @@ export function HomePage() {
           </div>
         </motion.div>
 
-        {/* Features */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
