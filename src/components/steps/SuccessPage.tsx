@@ -1,5 +1,12 @@
 import { motion } from "framer-motion";
-import { CheckCircle, ArrowRight, Github, Linkedin, Home } from "lucide-react";
+import {
+  CheckCircle,
+  ArrowRight,
+  Github,
+  Linkedin,
+  Home,
+  Share2,
+} from "lucide-react";
 import { Button } from "../ui/Button";
 import { useView } from "../../context/ViewContext";
 import { useWizard } from "../../context/WizardContext";

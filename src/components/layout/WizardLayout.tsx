@@ -1,7 +1,16 @@
 import React from "react";
 import { useWizard } from "../../context/WizardContext";
 import { cn } from "../../lib/utils";
-import { Users, PenTool, FileSignature, Palette, Eye } from "lucide-react";
+import {
+  Users,
+  PenTool,
+  FileSignature,
+  Palette,
+  Eye,
+  Github,
+  Linkedin,
+  Share2,
+} from "lucide-react";
 import { motion } from "framer-motion";
 import { AppPasswordGuideModal } from "../ui/AppPasswordGuideModal";
 
@@ -143,10 +152,9 @@ export function WizardLayout({ children }: { children: React.ReactNode }) {
         </div>
 
         <footer className="border-t border-slate-200/60 bg-white/50 backdrop-blur-sm">
-          <div className="max-w-full mx-auto px-6 h-12 flex items-center justify-center text-xs text-slate-500">
+          <div className="max-w-full mx-auto px-6 h-12 flex items-center justify-between text-xs text-slate-500">
             <p>
-              © {new Date().getFullYear()} BucketMail. Built with privacy in
-              mind by{" "}
+              © {new Date().getFullYear()} BucketMail · Built by{" "}
               <a
                 href="https://linktr.ee/Shema_philbert"
                 target="_blank"
@@ -155,8 +163,34 @@ export function WizardLayout({ children }: { children: React.ReactNode }) {
               >
                 Shema
               </a>
-              .
             </p>
+
+            <div className="flex items-center gap-3">
+              <a
+                href="https://github.com/gasanashema"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-slate-900 transition-colors"
+              >
+                <Github size={14} />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/shema-philbert"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-slate-900 transition-colors"
+              >
+                <Linkedin size={14} />
+              </a>
+              <a
+                href="https://linktr.ee/Shema_philbert"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-slate-900 transition-colors"
+              >
+                <Share2 size={14} />
+              </a>
+            </div>
           </div>
         </footer>
       </main>
