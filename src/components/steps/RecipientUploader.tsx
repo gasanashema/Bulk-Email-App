@@ -140,8 +140,12 @@ export function RecipientUploader() {
   };
 
   const addManualRecipient = () => {
-    if (!manualEntry.email || !manualEntry.email.includes("@")) {
-      setError("Please enter a valid email address.");
+    if (
+      !manualEntry.email ||
+      !manualEntry.email.includes("@") ||
+      !manualEntry.name.trim()
+    ) {
+      setError("Please enter both name and a valid email address.");
       return;
     }
 
@@ -259,7 +263,7 @@ export function RecipientUploader() {
               <div className="w-full max-w-xs space-y-3">
                 <h3 className="font-semibold text-slate-800">Add Recipient</h3>
                 <Input
-                  placeholder="Name (Optional)"
+                  placeholder="Name"
                   value={manualEntry.name}
                   onChange={(e) =>
                     setManualEntry({ ...manualEntry, name: e.target.value })
