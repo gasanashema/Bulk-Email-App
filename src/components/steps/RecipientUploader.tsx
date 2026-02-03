@@ -5,6 +5,7 @@ import { useWizard } from "../../context/WizardContext";
 import { Button } from "../ui/Button";
 import { Card, CardContent } from "../ui/Card";
 import { Input } from "../ui/Input";
+import { ConfirmationModal } from "../ui/ConfirmationModal";
 import {
   Upload,
   FileSpreadsheet,
@@ -24,6 +25,7 @@ export function RecipientUploader() {
   const [error, setError] = useState<string | null>(null);
   const [manualEntry, setManualEntry] = useState({ name: "", email: "" });
   const [showManualInput, setShowManualInput] = useState(false);
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -134,11 +136,16 @@ export function RecipientUploader() {
 
   const clearRecipients = () => {
     dispatch({ type: "SET_RECIPIENTS", payload: [] });
+    setShowClearConfirm(false);
   };
 
   const addManualRecipient = () => {
-    if (!manualEntry.email || !manualEntry.email.includes("@")) {
-      setError("Please enter a valid email address.");
+    if (
+      !manualEntry.email ||
+      !manualEntry.email.includes("@") ||
+      !manualEntry.name.trim()
+    ) {
+      setError("Please enter both name and a valid email address.");
       return;
     }
 
@@ -158,7 +165,7 @@ export function RecipientUploader() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h2 className="text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
             Import Contacts
@@ -170,8 +177,8 @@ export function RecipientUploader() {
         {state.recipients.length > 0 && (
           <Button
             variant="outline"
-            onClick={clearRecipients}
-            className="text-red-500 hover:text-red-600 hover:bg-red-50 border-slate-200"
+            onClick={() => setShowClearConfirm(true)}
+            className="text-red-500 hover:text-red-600 hover:bg-red-50 border-slate-200 w-full sm:w-auto"
           >
             <Trash2 className="w-4 h-4 mr-2" />
             Clear List
@@ -256,7 +263,7 @@ export function RecipientUploader() {
               <div className="w-full max-w-xs space-y-3">
                 <h3 className="font-semibold text-slate-800">Add Recipient</h3>
                 <Input
-                  placeholder="Name (Optional)"
+                  placeholder="Name"
                   value={manualEntry.name}
                   onChange={(e) =>
                     setManualEntry({ ...manualEntry, name: e.target.value })
@@ -337,7 +344,6 @@ export function RecipientUploader() {
                   <tr>
                     <th className="px-6 py-3">Name</th>
                     <th className="px-6 py-3">Email</th>
-                    <th className="px-6 py-3">Other Fields</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
@@ -356,13 +362,6 @@ export function RecipientUploader() {
                             !
                           </span>
                         )}
-                      </td>
-                      <td className="px-6 py-3 text-slate-400 italic">
-                        {Object.keys(recipient)
-                          .filter((k) => !["id", "name", "email"].includes(k))
-                          .slice(0, 3)
-                          .join(", ")}
-                        {Object.keys(recipient).length > 5 && "..."}
                       </td>
                     </tr>
                   ))}
@@ -384,6 +383,16 @@ export function RecipientUploader() {
           </div>
         </div>
       )}
+
+      <ConfirmationModal
+        isOpen={showClearConfirm}
+        onClose={() => setShowClearConfirm(false)}
+        onConfirm={clearRecipients}
+        title="Clear Subscriber List?"
+        description="Are you sure you want to remove all recipients? This action cannot be undone."
+        confirmLabel="Yes, Clear List"
+        variant="danger"
+      />
     </div>
   );
 }
