@@ -230,8 +230,18 @@ export function PreviewExport() {
   }
 
   return (
-    <div className="h-full flex flex-col space-y-6">
-      <div className="flex justify-between items-end">
+    <div className="h-full flex flex-col space-y-6 overflow-y-auto lg:overflow-hidden p-1">
+      <div className="flex justify-start shrink-0">
+        <Button
+          variant="ghost"
+          onClick={() => dispatch({ type: "PREV_STEP" })}
+          className="text-slate-500 hover:text-slate-900 -ml-2"
+        >
+          <ChevronLeft className="w-4 h-4 mr-2" /> Back to Edit
+        </Button>
+      </div>
+
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 shrink-0">
         <div>
           <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
             Ready to Launch? 🚀
@@ -241,7 +251,7 @@ export function PreviewExport() {
           </p>
         </div>
 
-        <div className="flex items-center bg-white p-1.5 rounded-xl shadow-sm border border-slate-200">
+        <div className="flex items-center bg-white p-1.5 rounded-xl shadow-sm border border-slate-200 self-end sm:self-auto">
           <button
             onClick={() => setViewMode("desktop")}
             className={cn(
@@ -268,7 +278,7 @@ export function PreviewExport() {
       </div>
 
       {!state.subject && (
-        <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-center animate-in fade-in slide-in-from-top-2">
+        <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-center animate-in fade-in slide-in-from-top-2 shrink-0">
           <div className="bg-amber-100 p-2 rounded-full mr-3">
             <AlertTriangle className="text-amber-600 w-5 h-5" />
           </div>
@@ -283,8 +293,8 @@ export function PreviewExport() {
         </div>
       )}
 
-      <div className="flex-1 flex gap-8 overflow-hidden">
-        <div className="w-80 flex flex-col gap-6 overflow-y-auto pr-2">
+      <div className="flex-1 flex flex-col lg:flex-row gap-8 min-h-0">
+        <div className="w-full lg:w-80 flex flex-col gap-6 lg:overflow-y-auto pr-0 lg:pr-2 pb-4 lg:pb-0 shrink-0">
           {/* Credentials Card */}
           <Card className="border-0 shadow-lg ring-1 ring-slate-100 bg-gradient-to-br from-white to-slate-50/50">
             <CardContent className="p-5 space-y-5">
@@ -409,7 +419,7 @@ export function PreviewExport() {
           </div>
         </div>
 
-        <div className="flex-1 bg-slate-100 rounded-2xl border border-slate-200/60 p-8 flex justify-center overflow-y-auto relative shadow-inner">
+        <div className="flex-1 bg-slate-100 rounded-2xl border border-slate-200/60 p-4 lg:p-8 flex justify-center lg:overflow-y-auto relative shadow-inner min-h-[500px]">
           <div className="absolute inset-0 bg-grid-slate-200/50 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] pointer-events-none" />
 
           <div
@@ -450,16 +460,6 @@ export function PreviewExport() {
             />
           </div>
         </div>
-      </div>
-
-      <div className="flex justify-start pt-2">
-        <Button
-          variant="ghost"
-          onClick={() => dispatch({ type: "PREV_STEP" })}
-          className="text-slate-500 hover:text-slate-900"
-        >
-          <ChevronLeft className="w-4 h-4 mr-2" /> Back to Edit
-        </Button>
       </div>
 
       <AppPasswordGuideModal
